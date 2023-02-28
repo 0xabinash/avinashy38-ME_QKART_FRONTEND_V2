@@ -15,7 +15,6 @@ const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [userInput, setUserInput] = useState(initialValues)
   const [isLoading, setIsLoading] = useState(false)
-  const [user, setUser] = useState()
 
   const handleInput = (event) => {
     const {name, value} = event.target
@@ -38,7 +37,6 @@ const Login = () => {
       const response = await axios.post(url, formData)
 
       persistLogin(response.data.token, response.data.username, response.data.balance)
-      setUser(response.data)
       enqueueSnackbar("Logged in successfully", {variant: "success"}) //snackbar for success message
       setUserInput(resetInput) // resetting userInput state
       setIsLoading(false); // loading icon stopped after success

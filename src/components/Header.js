@@ -7,6 +7,8 @@ import "./Header.css";
 
 const Header = ({ children, hasHiddenAuthButtons }) => {
    const history = useHistory();
+   console.log(hasHiddenAuthButtons)
+   console.log(children)
 
   const logOut = () => {
     localStorage.removeItem("username")
