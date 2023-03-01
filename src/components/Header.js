@@ -7,8 +7,6 @@ import "./Header.css";
 
 const Header = ({ children, hasHiddenAuthButtons }) => {
    const history = useHistory();
-   console.log(hasHiddenAuthButtons)
-   console.log(children)
 
   const logOut = () => {
     localStorage.removeItem("username")
@@ -29,14 +27,14 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   const routeToExplore = () => {
     history.push("/")
   }
-
+  
   if(hasHiddenAuthButtons){
     return (
       <Box className="header">
         <Box className="header-title">
             <img src="logo_light.svg" alt="QKart-icon"></img>
         </Box>
-
+        {children}
         <Button
           className="explore-button"
           startIcon={<ArrowBackIcon />}
@@ -56,15 +54,19 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
         <Box className="header-title">
             <img src="logo_light.svg" alt="QKart-icon"></img>
         </Box>
+        {children}
         <Stack direction="row" alignItems="center" spacing={1} >
           {localStorage.getItem("username") ? 
           (<>
             <Avatar
              src="avatar.png" 
              sx={{ width: 35, height: 35 }}
-             alt={localStorage.getItem("username") || "profile"} />
+             alt={localStorage.getItem("username") || "profile"} 
+            />
             <p>{localStorage.getItem("username")}</p>
-            <Button onClick={logOut}>Logout</Button>
+            <Button onClick={logOut}>
+              Logout
+            </Button>
            </>) : (
             <>
               <Button className="explore-button" variant="text" onClick={routToLogin} >
