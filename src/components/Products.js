@@ -159,16 +159,24 @@ const Products = () => {
 
   return (
     <div>
-      <Header>
+      <Header >
         {/* TODO: CRIO_TASK_MODULE_PRODUCTS - Display search bar in the header for Products page */}
-        <TextField
-          placeholder="Search for items/categories"
-          className="search-desktop"
-          name="search"
-          sx={{width: 2/4}}
-          fullWidth
-          onChange={(event) => debounceSearch(event, debounceTimeout)}
-        />
+          <TextField
+            className="search-desktop"
+            size="small"
+            InputProps={{
+              className: "search",
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Search color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            placeholder="Search for items/categories"
+            name="search"
+            onChange={(event) => debounceSearch(event, debounceTimeout)}
+          />
+          
       </Header>
 
       {/* Search view for mobiles */}
