@@ -79,6 +79,20 @@ export const getTotalCartValue = (items = []) => {
   return sum;
 };
 
+export const getTotalItems = (items = []) => {
+  if(items.length === 0){
+    return 0;
+  }
+
+  const totalOrderCount = items.map((item)=>{
+    return item.reduce((initial, current)=>{
+      return initial + current
+    }, 0)
+  })
+
+  return totalOrderCount;
+}
+
 
 /**
  * Component to display the current quantity for a product and + and - buttons to update product quantity on cart
@@ -94,7 +108,13 @@ export const getTotalCartValue = (items = []) => {
  * 
  * 
  */
-const ItemQuantity = ({value, handleAdd, handleDelete,}) => {
+const ItemQuantity = ({value, handleAdd, handleDelete, isReadOnly}) => {
+  if(isReadOnly){
+    return(<Box padding="0.5rem" data-testid="item-qty">
+            Qty:{value}
+          </Box>)
+  }
+
   return (
     <Stack direction="row" alignItems="center">
       <IconButton size="small" color="primary" onClick={handleDelete}>
@@ -124,7 +144,7 @@ const ItemQuantity = ({value, handleAdd, handleDelete,}) => {
  * 
  * 
  */
-const Cart = ({products, items = [], handleQuantity,}) => {
+const Cart = ({products, items = [], handleQuantity, isReadOnly, hasCheckoutButton}) => {
   const history = useHistory()
 
   const directToCheckout = () => {
@@ -183,6 +203,8 @@ const Cart = ({products, items = [], handleQuantity,}) => {
                 handleDelete={async () => {
                   await handleQuantity(token, items, products, item.productId, item.qty - 1)
                 }}
+
+                isReadOnly={isReadOnly}
                 />
                 <Box padding="0.5rem" fontWeight="700">
                     ${item.cost}
@@ -212,7 +234,7 @@ const Cart = ({products, items = [], handleQuantity,}) => {
           </Box>
         </Box>
 
-        <Box display="flex" justifyContent="flex-end" className="cart-footer">
+        {hasCheckoutButton && <Box display="flex" justifyContent="flex-end" className="cart-footer">
           <Button
             color="primary"
             variant="contained"
@@ -222,7 +244,7 @@ const Cart = ({products, items = [], handleQuantity,}) => {
           >
             Checkout
           </Button>
-        </Box>
+        </Box>}
       </Box>
     </>
   );
