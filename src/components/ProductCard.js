@@ -1,13 +1,5 @@
 import { AddShoppingCartOutlined } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Rating,
-  Typography,
-} from "@mui/material";
+import {Button, Card, CardActions, CardContent, CardMedia, Rating, Typography} from "@mui/material";
 import React from "react";
 import "./ProductCard.css";
 
@@ -22,7 +14,7 @@ const ProductCard = ({ product, handleAddToCart }) => {
           {product.name}
         </Typography>
         <Typography paddingY="0.5rem" fontWeight="700" >
-          $ {product.cost}
+          ${product.cost}
         </Typography>
         <Rating name="read-only" value={product.rating} precision={0.5} readOnly />
       </CardContent>
@@ -32,6 +24,7 @@ const ProductCard = ({ product, handleAddToCart }) => {
           fullWidth
           variant="contained"
           startIcon={<AddShoppingCartOutlined/>}
+          onClick={handleAddToCart}
         >
           ADD TO CART
         </Button>
